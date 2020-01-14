@@ -21,7 +21,7 @@ public class LoginTests {
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
-	//private RegistrationPOM registrationPOM;
+	private RegistrationPOM registrationPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -35,6 +35,7 @@ public class LoginTests {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.FIREFOX);
+		registrationPOM = new RegistrationPOM(driver);
 		loginPOM = new LoginPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
@@ -47,7 +48,7 @@ public class LoginTests {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-	@Test 
+	@Test
 	public void validLoginTest() 
 	{
 		loginPOM.sendUserName("admin");
@@ -55,6 +56,19 @@ public class LoginTests {
 		loginPOM.clickLoginBtn(); 
 		screenShot.captureScreenShot("First");
 		
+	}
+	@Test
+	public void registrationTest() throws Throwable
+	{
+		registrationPOM.clicksignUp();
+		registrationPOM.sendfirstname("Mohammed");
+		registrationPOM.sendlastname("Ghiyas");
+		registrationPOM.sendemail("md.ghiyas@gmail.com");
+		registrationPOM.sendusername("abc112");
+		registrationPOM.sendnewpassowrd("abcxyz");
+		registrationPOM.sendconfpassowrd("abcxyz");
+		registrationPOM.sendphone("9866565");
+		registrationPOM.clickRegister();
 	}
 	
 	
